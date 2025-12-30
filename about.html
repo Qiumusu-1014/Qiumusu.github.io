@@ -53,6 +53,12 @@
 
     <nav class="navbar">
         <a href="index.html" class="logo"><!-- 这里的 src="images/logo.png" 对应您第一步存放的位置 --><img src="images/logo.png" alt="Logo"> </i> UAE ROYAL CAPITAL</a>
+    .logo img {
+        height: 40px;      /* 这里控制高度，建议 30px 到 50px 之间 */
+        width: auto;       /* 宽度自动，保持比例不变 */
+        margin-right: 10px;/* 图片和右边文字的间距 */
+        object-fit: contain;
+        }
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="about.html" style="color:var(--royal-gold)">About Us</a>
