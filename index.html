@@ -49,65 +49,32 @@
             opacity: 0.4;
         }
 
-        h1, h2, h3, h4 {
-            font-family: var(--font-serif);
-            font-weight: 700;
-            color: var(--deep-navy);
-        }
-
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; color: var(--deep-navy); }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
 
-        /* --- 2. NAVIGATION BAR --- */
-       /* --- 替换原有的 .navbar 样式 --- */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0; /* 确保紧贴左侧 */
-    width: 100%;
-    height: 80px; /* 固定高度，更稳定 */
-    
-    /* !!! 核心修改 !!! */
-    /* 之前是 5%，现在改为 10% 或者使用 max-width 逻辑 */
-    /* 这样可以让导航栏的内容往中间靠，与正文对齐 */
-    padding: 0 max(5%, calc((100% - 1200px) / 2)); 
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.98); /* 稍微增加不透明度 */
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-    transition: 0.4s;
-    box-sizing: border-box; /* 防止 padding 撑大页面产生横向滚动条 */
-}
+        /* --- 2. NAVIGATION BAR (响应式升级版) --- */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            padding: 0 max(5%, calc((100% - 1200px) / 2)); 
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); transition: 0.4s;
+            box-sizing: border-box;
+        }
 
-/* 配合固定高度，Logo 图片微调 */
-.logo img {
-    height: 45px; /* 稍微调大一点点 */
-    width: auto;
-    object-fit: contain;
-    margin-right: 10px;
-}
-
-/* 移动端适配：手机屏幕小，边距要小一点 */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 1.5rem; /* 手机上左右留一点缝隙即可 */
-        height: 70px;
-    }
-}
         .logo {
-            font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--deep-navy);
-            letter-spacing: 1px; display: flex; align-items: center; gap: 10px;
+            font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--deep-navy);
+            letter-spacing: 1px; display: flex; align-items: center; gap: 10px; z-index: 1001;
         }
-        
-        .logo img {
-            height: 40px; width: auto; margin-right: 10px; object-fit: contain;
+        .logo img { height: 45px; width: auto; object-fit: contain; }
+
+        /* 桌面端菜单容器 */
+        .nav-container {
+            display: flex; align-items: center; gap: 2rem;
         }
 
-        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-links a {
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-navy);
             font-weight: 500; position: relative;
@@ -123,6 +90,58 @@
             border-radius: 2px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--deep-navy);
         }
         .btn-donate:hover { background: #fff; color: var(--deep-navy); border-color: var(--royal-gold); }
+
+        /* --- 汉堡菜单图标 (默认隐藏) --- */
+        .hamburger {
+            display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001;
+        }
+        .bar {
+            width: 25px; height: 3px; background-color: var(--deep-navy); transition: 0.4s;
+        }
+
+        /* --- MOBILE RESPONSIVE NAV STYLES --- */
+        @media (max-width: 900px) {
+            .navbar { padding: 0 1.5rem; height: 70px; }
+            .logo { font-size: 1.1rem; } /* 手机上Logo字体稍微调小防止换行 */
+            
+            /* 显示汉堡图标 */
+            .hamburger { display: flex; }
+
+            /* 隐藏并重塑菜单 */
+            .nav-container {
+                position: fixed;
+                top: 70px; /* 导航栏高度 */
+                left: 0;
+                width: 100%;
+                background-color: #fff;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                border-bottom: 2px solid var(--royal-gold);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                
+                /* 动画初始状态：向上隐藏 */
+                transform: translateY(-150%);
+                transition: transform 0.5s ease;
+                z-index: 1000;
+            }
+
+            /* 激活状态：滑下来 */
+            .nav-container.active {
+                transform: translateY(0);
+            }
+
+            .nav-links { flex-direction: column; gap: 20px; width: 100%; text-align: center; }
+            .nav-links a { font-size: 1rem; display: block; padding: 10px 0; width: 100%; }
+            
+            /* 手机端 Donate 按钮样式调整 */
+            .btn-donate { width: 80%; text-align: center; margin-top: 20px; }
+
+            /* 汉堡图标变为 X 的动画 */
+            .hamburger.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        }
 
         /* --- 3. HERO SECTION --- */
         .hero {
@@ -171,68 +190,29 @@
         .counter-number { font-size: 3rem; font-family: var(--font-serif); color: var(--deep-navy); font-weight: 700; display: block; }
         .counter-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; color: var(--royal-gold); font-weight: 600; }
 
-        /* --- INVESTMENT AREAS (已优化：居中 + 动画样式) --- */
+        /* --- INVESTMENT AREAS (优化版) --- */
         .investment-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* 居中对齐 */
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;
+            max-width: 1200px; margin: 0 auto;
         }
-
         .invest-card {
-            background: #fff;
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border-radius: 8px;
-            
-            /* 宽度设置 */
-            flex: 0 0 calc(20% - 1.5rem); 
-            min-width: 200px;
-            
-            /* 初始状态：隐藏，等待JS触发动画 */
-            opacity: 0;
-            transform: translateY(30px);
+            background: #fff; border: 1px solid rgba(197, 160, 89, 0.2); padding: 2.5rem 1.5rem;
+            text-align: center; transition: all 0.4s ease; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-radius: 8px;
+            flex: 0 0 calc(20% - 1.5rem); min-width: 200px;
+            opacity: 0; transform: translateY(30px); /* 动画初始状态 */
         }
-
         .invest-card:hover {
-            transform: translateY(-10px) !important;
-            border-color: var(--royal-gold);
+            transform: translateY(-10px) !important; border-color: var(--royal-gold);
             box-shadow: 0 20px 50px rgba(197, 160, 89, 0.2);
         }
-
         .invest-card i {
-            font-size: 2.5rem;
-            color: var(--deep-navy);
-            margin-bottom: 1rem;
-            transition: 0.4s;
+            font-size: 2.5rem; color: var(--deep-navy); margin-bottom: 1rem; transition: 0.4s;
         }
-
-        .invest-card:hover i {
-            color: var(--royal-gold);
-            transform: scale(1.1);
-        }
-
-        .invest-card h3 {
-            font-size: 1rem;
-            font-family: var(--font-sans);
-            font-weight: 600;
-            color: var(--deep-navy);
-        }
-
-        /* 动画执行类 */
-        .invest-card.visible {
-            animation: fadeUp 0.8s ease forwards;
-        }
-
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .invest-card:hover i { color: var(--royal-gold); transform: scale(1.1); }
+        .invest-card h3 { font-size: 1rem; font-family: var(--font-sans); font-weight: 600; color: var(--deep-navy); }
+        .invest-card.visible { animation: fadeUp 0.8s ease forwards; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         /* --- TEAM --- */
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
@@ -249,35 +229,21 @@
 
         /* --- NEWS PREVIEW --- */
         .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        
         .news-card {
-            background: #fff; 
-            padding: 0;
-            padding-bottom: 2rem;
-            border-bottom: 3px solid var(--royal-gold);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03); 
-            transition: 0.3s; 
+            background: #fff; padding: 0; padding-bottom: 2rem; border-bottom: 3px solid var(--royal-gold);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03); transition: 0.3s; 
             display: flex; flex-direction: column; justify-content: space-between;
-            overflow: hidden;
-            border-radius: 4px;
+            overflow: hidden; border-radius: 4px;
         }
-        
-        .news-card-img {
-            width: 100%; height: 200px; object-fit: cover; transition: 0.5s;
-        }
-
+        .news-card-img { width: 100%; height: 200px; object-fit: cover; transition: 0.5s; }
         .news-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
         .news-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); transform: translateY(-3px); }
         .news-card:hover .news-card-img { transform: scale(1.05); }
-
         .news-date { font-size: 0.8rem; color: #999; margin-bottom: 0.8rem; display: block; text-transform: uppercase; letter-spacing: 1px; }
         .news-card h3 { font-size: 1.2rem; color: var(--deep-navy); margin-bottom: 1rem; font-family: var(--font-serif); line-height: 1.3; font-weight: 700; }
         .news-card p { font-size: 0.95rem; color: var(--text-body); margin-bottom: 1.5rem; }
-        .read-more {
-            color: var(--royal-gold); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: auto;
-        }
+        .read-more { color: var(--royal-gold); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: auto; }
         .read-more:hover { color: var(--deep-navy); }
-        
         .view-all-btn-container { text-align: center; margin-top: 4rem; }
         .btn-outline {
             border: 1px solid var(--deep-navy); padding: 12px 35px; color: var(--deep-navy);
@@ -295,37 +261,47 @@
         .footer-info p { color: #8892b0; margin-bottom: 0.5rem; }
         .copyright { margin-top: 4rem; font-size: 0.8rem; color: #444; border-top: 1px solid #1a1a1a; padding-top: 2rem; }
 
-        /* --- MOBILE --- */
+        /* --- MOBILE GENERAL --- */
         @media (max-width: 1024px) {
-            .invest-card { flex: 0 0 calc(33.33% - 1.5rem); } /* 平板一行3个 */
+            .invest-card { flex: 0 0 calc(33.33% - 1.5rem); }
         }
         @media (max-width: 900px) {
-            .navbar { padding: 1rem; }
-            .nav-links { display: none; }
             .hero h1 { font-size: 2.2rem; }
             section { padding: 4rem 5%; }
-            .invest-card { flex: 0 0 calc(50% - 1.5rem); } /* 手机一行2个 */
+            .invest-card { flex: 0 0 calc(50% - 1.5rem); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- 导航栏 (结构调整以支持移动端折叠) -->
     <nav class="navbar">
         <a href="index.html" class="logo">
             <img src="images/logo.png" alt="Logo"> 
             UAE ROYAL CAPITAL
         </a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="#investment">Investment</a>
-            <a href="#team">Team</a>
-            <a href="news.html">News Center</a>
-            <a href="careers.html">Careers</a>
-            <a href="contact.html">Contact</a>
+
+        <!-- 汉堡图标 (仅手机显示) -->
+        <div class="hamburger" id="hamburger-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
-        <a href="donate.html" class="btn-donate">Donate</a>
+
+        <!-- 菜单容器 (包含链接和 Donate 按钮) -->
+        <div class="nav-container" id="nav-menu">
+            <div class="nav-links">
+                <a href="index.html" onclick="closeMenu()">Home</a>
+                <a href="about.html" onclick="closeMenu()">About Us</a>
+                <a href="#investment" onclick="closeMenu()">Investment</a>
+                <a href="#team" onclick="closeMenu()">Team</a>
+                <a href="news.html" onclick="closeMenu()">News Center</a>
+                <a href="careers.html" onclick="closeMenu()">Careers</a>
+                <a href="contact.html" onclick="closeMenu()">Contact</a>
+            </div>
+            <!-- Donate 按钮现在包含在菜单里 -->
+            <a href="donate.html" class="btn-donate" onclick="closeMenu()">Donate</a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -338,19 +314,17 @@
         </div>
     </header>
 
-    <!-- About Preview Section -->
+    <!-- About Section -->
     <section id="about">
         <div class="section-title">
             <h2>About Us</h2>
             <div class="gold-line"></div>
         </div>
-        
         <div class="about-content">
             <p class="about-text">
                 The Foundation aims to support the UAE in developing an innovative, sustainable, and globally competitive economic ecosystem that enables enterprises to grow and prosper.
             </p>
         </div>
-
         <div class="counters-container">
             <div class="counter-box">
                 <span class="counter-number" data-target="60">0</span>
@@ -365,64 +339,28 @@
                 <span class="counter-label">Established In</span>
             </div>
         </div>
-
         <div style="text-align: center;">
             <a href="about.html" class="read-more" style="font-size: 1.1rem;">Read Full Introduction <i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </section>
 
-    <!-- Investment Areas (已优化：Flex居中 + 波浪动画) -->
+    <!-- Investment Areas -->
     <section id="investment">
         <div class="section-title">
             <h2>Our Investment Areas</h2>
             <div class="gold-line"></div>
         </div>
-
         <div class="investment-grid">
-            <!-- 
-                animation-delay 控制出现的顺序
-                0.1s, 0.2s, 0.3s ... 像波浪一样出现
-            -->
-            <div class="invest-card" style="animation-delay: 0.1s;">
-                <i class="fa-solid fa-solar-panel"></i>
-                <h3>New Energy</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.2s;">
-                <i class="fa-solid fa-oil-well"></i>
-                <h3>Oil & Gas</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.3s;">
-                <i class="fa-solid fa-masks-theater"></i>
-                <h3>Culture</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.4s;">
-                <i class="fa-solid fa-handshake-simple"></i>
-                <h3>Sister Cities</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.5s;">
-                <i class="fa-solid fa-hand-holding-heart"></i>
-                <h3>Charity</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.6s;">
-                <i class="fa-solid fa-heart-pulse"></i>
-                <h3>Health Industry</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.7s;">
-                <i class="fa-solid fa-hotel"></i>
-                <h3>Hospitality & Tourism</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.8s;">
-                <i class="fa-solid fa-city"></i>
-                <h3>Real Estate</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 0.9s;">
-                <i class="fa-solid fa-gem"></i>
-                <h3>Mining</h3>
-            </div>
-            <div class="invest-card" style="animation-delay: 1.0s;">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h3>Int'l Education</h3>
-            </div>
+            <div class="invest-card" style="animation-delay: 0.1s;"><i class="fa-solid fa-solar-panel"></i><h3>New Energy</h3></div>
+            <div class="invest-card" style="animation-delay: 0.2s;"><i class="fa-solid fa-oil-well"></i><h3>Oil & Gas</h3></div>
+            <div class="invest-card" style="animation-delay: 0.3s;"><i class="fa-solid fa-masks-theater"></i><h3>Culture</h3></div>
+            <div class="invest-card" style="animation-delay: 0.4s;"><i class="fa-solid fa-handshake-simple"></i><h3>Sister Cities</h3></div>
+            <div class="invest-card" style="animation-delay: 0.5s;"><i class="fa-solid fa-hand-holding-heart"></i><h3>Charity</h3></div>
+            <div class="invest-card" style="animation-delay: 0.6s;"><i class="fa-solid fa-heart-pulse"></i><h3>Health Industry</h3></div>
+            <div class="invest-card" style="animation-delay: 0.7s;"><i class="fa-solid fa-hotel"></i><h3>Hospitality & Tourism</h3></div>
+            <div class="invest-card" style="animation-delay: 0.8s;"><i class="fa-solid fa-city"></i><h3>Real Estate</h3></div>
+            <div class="invest-card" style="animation-delay: 0.9s;"><i class="fa-solid fa-gem"></i><h3>Mining</h3></div>
+            <div class="invest-card" style="animation-delay: 1.0s;"><i class="fa-solid fa-graduation-cap"></i><h3>Int'l Education</h3></div>
         </div>
     </section>
 
@@ -432,88 +370,64 @@
             <h2>Key Members</h2>
             <div class="gold-line"></div>
         </div>
-
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-img-wrapper">
-                    <img src="https://via.placeholder.com/400x500/0E1E35/D4AF37?text=Sheikh+Humaid" alt="Sheikh Humaid Al Mualla">
-                </div>
-                <h3>Sheikh Humaid Al Mualla</h3>
-                <p>Board Member</p>
+                <div class="team-img-wrapper"><img src="https://via.placeholder.com/400x500/0E1E35/D4AF37?text=Sheikh+Humaid" alt="Sheikh Humaid Al Mualla"></div>
+                <h3>Sheikh Humaid Al Mualla</h3><p>Board Member</p>
             </div>
             <div class="team-card">
-                <div class="team-img-wrapper">
-                    <img src="https://via.placeholder.com/400x500/0E1E35/D4AF37?text=Sheikh+Mohammed" alt="Sheikh Mohammed bin Hamdan Al Nahyan">
-                </div>
-                <h3>Sheikh Mohammed bin Hamdan Al Nahyan</h3>
-                <p>Board Chairman</p>
+                <div class="team-img-wrapper"><img src="https://via.placeholder.com/400x500/0E1E35/D4AF37?text=Sheikh+Mohammed" alt="Sheikh Mohammed bin Hamdan Al Nahyan"></div>
+                <h3>Sheikh Mohammed bin Hamdan Al Nahyan</h3><p>Board Chairman</p>
             </div>
             <div class="team-card">
-                <div class="team-img-wrapper">
-                    <img src="https://via.placeholder.com/400x500/0E1E35/D4AF37?text=Mr.+Youssuf" alt="Mr. Youssuf">
-                </div>
-                <h3>Mr. Youssuf</h3>
-                <p>Secretary General</p>
+                <div class="team-img-wrapper"><img src="https://via.placeholder.com/400x500/0E1E35/D4AF37?text=Mr.+Youssuf" alt="Mr. Youssuf"></div>
+                <h3>Mr. Youssuf</h3><p>Secretary General</p>
             </div>
         </div>
     </section>
 
-    <!-- News Preview Section (已更新链接：指向 news_pages/news_new_x.html) -->
+    <!-- News Preview -->
     <section id="news-preview">
         <div class="section-title">
             <h2>Latest News</h2>
             <div class="gold-line"></div>
         </div>
-
         <div class="news-grid">
-           <!-- News 1: Musk & Dubai -->
-<div class="news-card">
-    <!-- 修改这里的 src -->
-    <img src="https://media.cnn.com/api/v1/images/stellar/prod/170214124846-musk-dubai-3.jpg?q=w_800,h_500,x_0,y_0,c_fill" class="news-card-img" alt="Elon Musk and Sheikh Hamdan">
-    
-    <div class="news-card-content">
-        <span class="news-date">Nov 12, 2025</span>
-        <h3>Elon Musk Meets Crown Prince Hamdan to Launch "Tesla AI City"</h3>
-        <p>A historic partnership to build autonomous infrastructure and AI research hubs in Dubai South.</p>
-        <a href="news_pages/news_new_1.html" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-</div>
-
-            <!-- News 2: Qatar Summit -->
+            <div class="news-card">
+                <img src="https://media.cnn.com/api/v1/images/stellar/prod/170214124846-musk-dubai-3.jpg?q=w_800,h_500,x_0,y_0,c_fill" class="news-card-img" alt="Elon Musk">
+                <div class="news-card-content">
+                    <span class="news-date">Nov 12, 2025</span>
+                    <h3>Elon Musk Meets Crown Prince Hamdan to Launch "Tesla AI City"</h3>
+                    <p>A historic partnership to build autonomous infrastructure and AI research hubs in Dubai South.</p>
+                    <a href="news_pages/news_new_1.html" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
             <div class="news-card">
                 <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=600&auto=format&fit=crop" class="news-card-img" alt="Qatar Summit">
                 <div class="news-card-content">
                     <span class="news-date">Oct 28, 2025</span>
                     <h3>Doha Royal Summit: Emir of Qatar Hosts GCC Leaders</h3>
                     <p>Discussions focused on a unified Gulf digital currency and economic integration strategies.</p>
-                    <!-- 修正链接 -->
                     <a href="news_pages/news_new_2.html" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
-
-            <!-- News 3: Oman Railway -->
             <div class="news-card">
                 <img src="https://images.unsplash.com/photo-1474540412665-1cdae210ae6b?q=80&w=600&auto=format&fit=crop" class="news-card-img" alt="Oman Railway">
                 <div class="news-card-content">
                     <span class="news-date">Sep 15, 2025</span>
                     <h3>Sultan Haitham and UAE President Inspect Railway Progress</h3>
                     <p>A landmark $3B project connecting Sohar and Abu Dhabi to boost regional trade velocity.</p>
-                    <!-- 修正链接 -->
                     <a href="news_pages/news_new_3.html" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-        
         <div class="view-all-btn-container">
             <a href="news.html" class="btn-outline">View All News</a>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <span class="footer-logo">
-             <img src="images/logo.png" alt="Logo"> UAE ROYAL CAPITAL FUNDING
-        </span>
+        <span class="footer-logo"><img src="images/logo.png" alt="Logo"> UAE ROYAL CAPITAL FUNDING</span>
         <div class="footer-info">
             <p>business village, Dubai, UAE</p>
             <p>info@uaeroyalcapital.com</p>
@@ -521,12 +435,10 @@
         <p class="copyright">© 2026 UAE Royal Capital Funding. All Rights Reserved.</p>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // --- 1. Counter Animation ---
+        // 1. Counters
         const counters = document.querySelectorAll('.counter-number');
         const speed = 200;
-
         const animateCounters = () => {
             counters.forEach(counter => {
                 const updateCount = () => {
@@ -536,57 +448,49 @@
                     if (count < target) {
                         counter.innerText = Math.ceil(count + inc);
                         setTimeout(updateCount, 20);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                updateCount();
+                    } else { counter.innerText = target; }
+                }; updateCount();
             });
         };
-
         const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting){
-                    animateCounters();
-                    counterObserver.unobserve(entry.target);
-                }
-            });
+            entries.forEach(entry => { if(entry.isIntersecting){ animateCounters(); counterObserver.unobserve(entry.target); } });
         }, { threshold: 0.5 });
-
         const countersSection = document.querySelector('.counters-container');
-        if(countersSection) {
-            counterObserver.observe(countersSection);
-        }
+        if(countersSection) { counterObserver.observe(countersSection); }
 
-        // --- 2. Navbar Scroll Effect ---
+        // 2. Navbar Scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-            } else {
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
-            }
+            if (window.scrollY > 50) { navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)'; } 
+            else { navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)'; }
         });
 
-        // --- 3. Investment Grid Animation (NEW) ---
-        // 监听 Investment 区域是否进入视口
+        // 3. Investment Animation
         const investObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // 获取所有卡片，添加 visible 类
                     const cards = entry.target.querySelectorAll('.invest-card');
-                    cards.forEach(card => {
-                        card.classList.add('visible');
-                    });
-                    // 动画只执行一次
+                    cards.forEach(card => { card.classList.add('visible'); });
                     investObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.2 }); // 当 20% 可见时触发
-
+        }, { threshold: 0.2 });
         const investGrid = document.querySelector('.investment-grid');
-        if (investGrid) {
-            investObserver.observe(investGrid);
+        if (investGrid) { investObserver.observe(investGrid); }
+
+        // 4. Mobile Menu Logic (NEW)
+        const hamburger = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active'); // 汉堡变叉
+            navMenu.classList.toggle('active');   // 菜单滑下
+        });
+
+        // 点击链接后自动收起菜单
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
         }
     </script>
 </body>
