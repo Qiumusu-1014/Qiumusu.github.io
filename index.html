@@ -16,7 +16,7 @@
     <style>
         /* --- 1. CORE VARIABLES & RESET --- */
         :root {
-            var(--bg-color): #FAFAF5; 
+            --bg-color: #FAFAF5; 
             --bg-card: #FFFFFF;
             --royal-gold: #C5A059;
             --royal-gold-faint: rgba(197, 160, 89, 0.1); 
@@ -30,7 +30,7 @@
 
         body {
             font-family: var(--font-sans);
-            background-color: #FAFAF5;
+            background-color: var(--bg-color);
             color: var(--text-body);
             line-height: 1.6;
             overflow-x: hidden;
@@ -71,7 +71,6 @@
             letter-spacing: 1px; display: flex; align-items: center; gap: 10px;
         }
         
-        /* Logo 图片样式 */
         .logo img {
             height: 40px; width: auto; margin-right: 10px; object-fit: contain;
         }
@@ -101,7 +100,7 @@
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(rgba(14, 30, 53, 0.4), rgba(14, 30, 53, 0.7)), 
-                              url('images/hero-bg.jpg'); /* 请确保这里是您设置的背景图 */
+                              url('images/hero-bg.jpg'); 
             background-size: cover; background-position: center; z-index: -1;
             animation: zoomEffect 25s infinite alternate;
         }
@@ -140,21 +139,68 @@
         .counter-number { font-size: 3rem; font-family: var(--font-serif); color: var(--deep-navy); font-weight: 700; display: block; }
         .counter-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; color: var(--royal-gold); font-weight: 600; }
 
-        /* --- INVESTMENT --- */
-        .investment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        /* --- INVESTMENT AREAS (已优化：居中 + 动画样式) --- */
+        .investment-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* 居中对齐 */
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .invest-card {
-            background: #fff; border: 1px solid rgba(0,0,0,0.05); padding: 2.5rem 1.5rem; text-align: center;
-            transition: 0.4s ease; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border-radius: 4px;
+            background: #fff;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border-radius: 8px;
+            
+            /* 宽度设置 */
+            flex: 0 0 calc(20% - 1.5rem); 
+            min-width: 200px;
+            
+            /* 初始状态：隐藏，等待JS触发动画 */
+            opacity: 0;
+            transform: translateY(30px);
         }
-        .invest-card:hover { transform: translateY(-8px); border-color: var(--royal-gold); box-shadow: 0 15px 40px rgba(197, 160, 89, 0.15); }
+
+        .invest-card:hover {
+            transform: translateY(-10px) !important;
+            border-color: var(--royal-gold);
+            box-shadow: 0 20px 50px rgba(197, 160, 89, 0.2);
+        }
+
         .invest-card i {
-            font-size: 2.5rem; background: linear-gradient(135deg, var(--deep-navy), #2a4066);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; transition: 0.4s;
+            font-size: 2.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+            transition: 0.4s;
         }
+
         .invest-card:hover i {
-            background: linear-gradient(135deg, var(--royal-gold), #e6c87f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: scale(1.1);
+            color: var(--royal-gold);
+            transform: scale(1.1);
         }
-        .invest-card h3 { font-size: 1rem; font-family: var(--font-sans); font-weight: 600; color: var(--deep-navy); }
+
+        .invest-card h3 {
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            color: var(--deep-navy);
+        }
+
+        /* 动画执行类 */
+        .invest-card.visible {
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* --- TEAM --- */
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
@@ -171,13 +217,29 @@
 
         /* --- NEWS PREVIEW --- */
         .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
         .news-card {
-            background: #fff; padding: 2.5rem; border-left: 3px solid var(--royal-gold);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03); transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between;
+            background: #fff; 
+            padding: 0;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--royal-gold);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03); 
+            transition: 0.3s; 
+            display: flex; flex-direction: column; justify-content: space-between;
+            overflow: hidden;
+            border-radius: 4px;
         }
+        
+        .news-card-img {
+            width: 100%; height: 200px; object-fit: cover; transition: 0.5s;
+        }
+
+        .news-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
         .news-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); transform: translateY(-3px); }
+        .news-card:hover .news-card-img { transform: scale(1.05); }
+
         .news-date { font-size: 0.8rem; color: #999; margin-bottom: 0.8rem; display: block; text-transform: uppercase; letter-spacing: 1px; }
-        .news-card h3 { font-size: 1.3rem; color: var(--deep-navy); margin-bottom: 1rem; font-family: var(--font-serif); line-height: 1.3; }
+        .news-card h3 { font-size: 1.2rem; color: var(--deep-navy); margin-bottom: 1rem; font-family: var(--font-serif); line-height: 1.3; font-weight: 700; }
         .news-card p { font-size: 0.95rem; color: var(--text-body); margin-bottom: 1.5rem; }
         .read-more {
             color: var(--royal-gold); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: auto;
@@ -202,11 +264,15 @@
         .copyright { margin-top: 4rem; font-size: 0.8rem; color: #444; border-top: 1px solid #1a1a1a; padding-top: 2rem; }
 
         /* --- MOBILE --- */
+        @media (max-width: 1024px) {
+            .invest-card { flex: 0 0 calc(33.33% - 1.5rem); } /* 平板一行3个 */
+        }
         @media (max-width: 900px) {
             .navbar { padding: 1rem; }
             .nav-links { display: none; }
             .hero h1 { font-size: 2.2rem; }
             section { padding: 4rem 5%; }
+            .invest-card { flex: 0 0 calc(50% - 1.5rem); } /* 手机一行2个 */
         }
     </style>
 </head>
@@ -273,7 +339,7 @@
         </div>
     </section>
 
-    <!-- Investment Areas -->
+    <!-- Investment Areas (已优化：Flex居中 + 波浪动画) -->
     <section id="investment">
         <div class="section-title">
             <h2>Our Investment Areas</h2>
@@ -281,43 +347,47 @@
         </div>
 
         <div class="investment-grid">
-            <div class="invest-card">
+            <!-- 
+                animation-delay 控制出现的顺序
+                0.1s, 0.2s, 0.3s ... 像波浪一样出现
+            -->
+            <div class="invest-card" style="animation-delay: 0.1s;">
                 <i class="fa-solid fa-solar-panel"></i>
                 <h3>New Energy</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.2s;">
                 <i class="fa-solid fa-oil-well"></i>
                 <h3>Oil & Gas</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.3s;">
                 <i class="fa-solid fa-masks-theater"></i>
                 <h3>Culture</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.4s;">
                 <i class="fa-solid fa-handshake-simple"></i>
                 <h3>Sister Cities</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.5s;">
                 <i class="fa-solid fa-hand-holding-heart"></i>
                 <h3>Charity</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.6s;">
                 <i class="fa-solid fa-heart-pulse"></i>
                 <h3>Health Industry</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.7s;">
                 <i class="fa-solid fa-hotel"></i>
                 <h3>Hospitality & Tourism</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.8s;">
                 <i class="fa-solid fa-city"></i>
                 <h3>Real Estate</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 0.9s;">
                 <i class="fa-solid fa-gem"></i>
                 <h3>Mining</h3>
             </div>
-            <div class="invest-card">
+            <div class="invest-card" style="animation-delay: 1.0s;">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <h3>Int'l Education</h3>
             </div>
@@ -356,7 +426,7 @@
         </div>
     </section>
 
-    <!-- News Preview Section (已修改：点击跳转到 news.html 具体锚点) -->
+    <!-- News Preview Section (已更新链接：指向 news_pages/news_new_x.html) -->
     <section id="news-preview">
         <div class="section-title">
             <h2>Latest News</h2>
@@ -364,29 +434,40 @@
         </div>
 
         <div class="news-grid">
-            <!-- News 1: Green Energy -->
+            <!-- News 1: Musk & Dubai -->
             <div class="news-card">
-                <span class="news-date">Dec 20, 2024</span>
-                <h3>Strategic $500M Investment in Green Hydrogen</h3>
-                <p>UAE Royal Capital Funding announces a landmark partnership to develop sustainable hydrogen infrastructure across the GCC region, aligning with global Net Zero goals.</p>
-                <!-- 跳转链接带锚点 -->
-                <a href="news.html#news-1" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea904ac6605?q=80&w=600&auto=format&fit=crop" class="news-card-img" alt="Dubai Tech">
+                <div class="news-card-content">
+                    <span class="news-date">Nov 12, 2025</span>
+                    <h3>Elon Musk Meets Crown Prince Hamdan to Launch "Tesla AI City"</h3>
+                    <p>A historic partnership to build autonomous infrastructure and AI research hubs in Dubai South.</p>
+                    <!-- 修正链接 -->
+                    <a href="news_pages/news_new_1.html" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
 
-            <!-- News 2: Education -->
+            <!-- News 2: Qatar Summit -->
             <div class="news-card">
-                <span class="news-date">Nov 15, 2024</span>
-                <h3>Global "Future Leaders" Education Initiative</h3>
-                <p>The Foundation launches a scholarship program empowering 1,000 students from developing nations, fostering the next generation of innovators and diplomats.</p>
-                <a href="news.html#news-2" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=600&auto=format&fit=crop" class="news-card-img" alt="Qatar Summit">
+                <div class="news-card-content">
+                    <span class="news-date">Oct 28, 2025</span>
+                    <h3>Doha Royal Summit: Emir of Qatar Hosts GCC Leaders</h3>
+                    <p>Discussions focused on a unified Gulf digital currency and economic integration strategies.</p>
+                    <!-- 修正链接 -->
+                    <a href="news_pages/news_new_2.html" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
 
-            <!-- News 3: Culture -->
+            <!-- News 3: Oman Railway -->
             <div class="news-card">
-                <span class="news-date">Oct 05, 2024</span>
-                <h3>Preserving Heritage: UNESCO Partnership</h3>
-                <p>A new collaboration aimed at restoring historic Islamic art and architecture, reinforcing the UAE's commitment to cultural preservation and international dialogue.</p>
-                <a href="news.html#news-3" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                <img src="https://images.unsplash.com/photo-1474540412665-1cdae210ae6b?q=80&w=600&auto=format&fit=crop" class="news-card-img" alt="Oman Railway">
+                <div class="news-card-content">
+                    <span class="news-date">Sep 15, 2025</span>
+                    <h3>Sultan Haitham and UAE President Inspect Railway Progress</h3>
+                    <p>A landmark $3B project connecting Sohar and Abu Dhabi to boost regional trade velocity.</p>
+                    <!-- 修正链接 -->
+                    <a href="news_pages/news_new_3.html" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
         
@@ -404,11 +485,12 @@
             <p>business village, Dubai, UAE</p>
             <p>info@uaeroyalcapital.com</p>
         </div>
-        <p class="copyright">© 2025 UAE Royal Capital Funding. All Rights Reserved.</p>
+        <p class="copyright">© 2026 UAE Royal Capital Funding. All Rights Reserved.</p>
     </footer>
 
     <!-- JavaScript -->
     <script>
+        // --- 1. Counter Animation ---
         const counters = document.querySelectorAll('.counter-number');
         const speed = 200;
 
@@ -418,7 +500,6 @@
                     const target = +counter.getAttribute('data-target');
                     const count = +counter.innerText;
                     const inc = target / speed;
-
                     if (count < target) {
                         counter.innerText = Math.ceil(count + inc);
                         setTimeout(updateCount, 20);
@@ -430,20 +511,21 @@
             });
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting){
                     animateCounters();
-                    observer.unobserve(entry.target);
+                    counterObserver.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
 
         const countersSection = document.querySelector('.counters-container');
         if(countersSection) {
-            observer.observe(countersSection);
+            counterObserver.observe(countersSection);
         }
 
+        // --- 2. Navbar Scroll Effect ---
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
@@ -452,6 +534,27 @@
                 navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
             }
         });
+
+        // --- 3. Investment Grid Animation (NEW) ---
+        // 监听 Investment 区域是否进入视口
+        const investObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 获取所有卡片，添加 visible 类
+                    const cards = entry.target.querySelectorAll('.invest-card');
+                    cards.forEach(card => {
+                        card.classList.add('visible');
+                    });
+                    // 动画只执行一次
+                    investObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 }); // 当 20% 可见时触发
+
+        const investGrid = document.querySelector('.investment-grid');
+        if (investGrid) {
+            investObserver.observe(investGrid);
+        }
     </script>
 </body>
 </html>
