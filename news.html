@@ -224,7 +224,7 @@
             </div>
         </div>
 
-        <div class="news-list">
+        <div class="news-list" id="news-list"></div>
             
             <!-- News 1: Musk & Dubai (CNN 图片) -->
             <article class="news-item" style="animation-delay: 0.1s;">
@@ -324,5 +324,43 @@
     </div>
 
     <footer><p>© 2026 UAE Royal Capital Funding. All Rights Reserved.</p></footer>
+    <script>
+fetch("data/news.json")
+  .then(res => res.json())
+  .then(news => {
+    const list = document.getElementById("news-list");
+
+    news.forEach((item, index) => {
+      const article = document.createElement("article");
+      article.className = "news-item";
+      article.style.animationDelay = `${index * 0.1}s`;
+
+      article.innerHTML = `
+        <div class="news-thumb">
+          <span class="category-tag">${item.category}</span>
+          <a href="${item.url}">
+            <img src="${item.image}" alt="">
+          </a>
+        </div>
+        <div class="news-content">
+          <div class="news-meta">
+            <span><i class="fa-regular fa-calendar"></i> ${item.date}</span>
+            <span><i class="fa-regular fa-user"></i> ${item.author}</span>
+          </div>
+          <h3 class="news-title">
+            <a href="${item.url}">${item.title}</a>
+          </h3>
+          <p class="news-excerpt">${item.excerpt}</p>
+          <a href="${item.url}" class="read-more-link">
+            Read Full Article <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      `;
+
+      list.appendChild(article);
+    });
+  });
+</script>
+
 </body>
 </html>
