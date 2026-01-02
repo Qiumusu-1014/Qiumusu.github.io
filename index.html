@@ -184,7 +184,7 @@
         .leader-info span { display: block; font-size: 0.8rem; color: var(--royal-gold); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
 
         .gallery-wrapper { width: 100%; overflow: hidden; padding-bottom: 2rem; }
-        .gallery-track { display: flex; width: max-content; gap: 1.5rem; animation: scrollGallery 40s linear infinite; }
+        .gallery-track { display: flex; width: max-content; gap: 1.5rem; animation: scrollGallery 60s linear infinite; }
         .gallery-track:hover, .ticker-track:hover { animation-play-state: paused; }
         
         .gallery-card {
@@ -382,18 +382,110 @@
         </div>
 
         <!-- Part 2: Gallery Ticker -->
-        <div class="gallery-wrapper">
-            <div class="gallery-track">
-                <div class="gallery-card"><img src="https://media.cnn.com/api/v1/images/stellar/prod/170214124846-musk-dubai-3.jpg?q=w_800,h_500,x_0,y_0,c_fill" alt="Tech"><div class="overlay">Strategic Tech Partnership</div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop" alt="Summit"><div class="overlay">High-Level Board Summit</div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=800&auto=format&fit=crop" alt="Signing"><div class="overlay">International Cooperation</div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1512453979798-5ea904ac6605?q=80&w=800&auto=format&fit=crop" alt="Visit"><div class="overlay">Infrastructure Inspection</div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1474540412665-1cdae210ae6b?q=80&w=800&auto=format&fit=crop" alt="Rail"><div class="overlay">Regional Connectivity</div></div>
-                <!-- Clone for loop -->
-                <div class="gallery-card"><img src="https://media.cnn.com/api/v1/images/stellar/prod/170214124846-musk-dubai-3.jpg?q=w_800,h_500,x_0,y_0,c_fill" alt="Tech"><div class="overlay">Strategic Tech Partnership</div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop" alt="Summit"><div class="overlay">High-Level Board Summit</div></div>
+    <div class="gallery-wrapper">
+        <div class="gallery-track">
+        
+            <!-- === 第一组：原始的 8 张照片 === -->
+            <!-- 照片 1 -->
+            <div class="gallery-card">
+                <img src="images/royal1.jpg" alt="Event 1">
+                <div class="overlay">Strategic Partnership Signing</div>
+            </div>
+
+            <!-- 照片 2 -->
+            <div class="gallery-card">
+                <img src="images/royal2.jpg" alt="Event 2">
+                <div class="overlay">Global Investment Summit</div>
+            </div>
+
+            <!-- 照片 3 -->
+            <div class="gallery-card">
+                <img src="images/royal3.jpg" alt="Event 3">
+                <div class="overlay">Royal Site Inspection</div>
+            </div>
+
+            <!-- 照片 4 -->
+            <div class="gallery-card">
+                <img src="images/royal4.jpg" alt="Event 4">
+                <div class="overlay">Meeting with Tech Giants</div>
+            </div>
+
+            <!-- 照片 5 -->
+            <div class="gallery-card">
+                <img src="images/royal5.jpg" alt="Event 5">
+                <div class="overlay">Sustainable Energy Launch</div>
+            </div>
+
+            <!-- 照片 6 -->
+            <div class="gallery-card">
+                <img src="images/royal6.jpg" alt="Event 6">
+                <div class="overlay">Charity Gala Dinner</div>
+            </div>
+
+            <!-- 照片 7 -->
+            <div class="gallery-card">
+                <img src="images/royal7.jpg" alt="Event 7">
+                <div class="overlay">International Delegation</div>
+            </div>
+
+            <!-- 照片 8 -->
+            <div class="gallery-card">
+                <img src="images/royal8.jpg" alt="Event 8">
+                <div class="overlay">Future Vision Conference</div>
+            </div>
+
+
+        <!-- === 第二组：复制上面完全一样的 8 张照片 (为了无缝滚动) === -->
+        
+            <!-- 复制 照片 1 -->
+            <div class="gallery-card">
+                <img src="images/royal1.jpg" alt="Event 1">
+                <div class="overlay">Strategic Partnership Signing</div>
+            </div>
+
+            <!-- 复制 照片 2 -->
+            <div class="gallery-card">
+                <img src="images/royal2.jpg" alt="Event 2">
+                <div class="overlay">Global Investment Summit</div>
+            </div>
+
+            <!-- 复制 照片 3 -->
+            <div class="gallery-card">
+                <img src="images/royal3.jpg" alt="Event 3">
+                <div class="overlay">Royal Site Inspection</div>
+            </div>
+
+            <!-- 复制 照片 4 -->
+            <div class="gallery-card">
+                <img src="images/royal4.jpg" alt="Event 4">
+                <div class="overlay">Meeting with Tech Giants</div>
+            </div>
+
+            <!-- 复制 照片 5 -->
+            <div class="gallery-card">
+                <img src="images/royal5.jpg" alt="Event 5">
+                <div class="overlay">Sustainable Energy Launch</div>
+            </div>
+
+            <!-- 复制 照片 6 -->
+            <div class="gallery-card">
+                <img src="images/royal6.jpg" alt="Event 6">
+                <div class="overlay">Charity Gala Dinner</div>
+            </div>
+
+            <!-- 复制 照片 7 -->
+            <div class="gallery-card">
+                <img src="images/royal7.jpg" alt="Event 7">
+                <div class="overlay">International Delegation</div>
+            </div>
+
+            <!-- 复制 照片 8 -->
+            <div class="gallery-card">
+                <img src="images/royal8.jpg" alt="Event 8">
+                <div class="overlay">Future Vision Conference</div>
             </div>
         </div>
+    </div>
     </section>
 
     <!-- News Preview -->
