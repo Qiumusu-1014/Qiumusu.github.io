@@ -107,6 +107,28 @@
             font-family: var(--font-serif); font-style: italic; line-height: 1.5;
         }
 
+        /* --- 5. CONTACT FORM (新增) --- */
+        .form-section { margin-top: 3rem; border-top: 1px solid #eee; padding-top: 2rem; }
+        .form-title { font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--deep-navy); }
+        
+        .contact-form .form-group { margin-bottom: 1rem; }
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;
+            font-family: var(--font-sans); font-size: 0.95rem; transition: 0.3s;
+            background: #fafbfc;
+        }
+        .contact-form input:focus, .contact-form textarea:focus { 
+            border-color: var(--royal-gold); outline: none; background: #fff;
+        }
+        
+        .send-btn {
+            background: var(--deep-navy); color: #fff; padding: 12px 30px; border: none; border-radius: 2px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .send-btn:hover { background: var(--royal-gold); }
+        .send-btn:disabled { background: #ccc; cursor: not-allowed; }
+
         footer { background: #050A10; color: #fff; text-align: center; padding: 2rem; margin-top: 4rem; }
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
@@ -142,6 +164,7 @@
                 "We welcome partners worldwide to collaborate with us in achieving prosperity and sustainable development."
             </p>
 
+            <!-- 基础联系信息 -->
             <div class="info-item">
                 <div class="icon-box"><i class="fa-solid fa-user-tie"></i></div>
                 <div class="info-content">
@@ -165,6 +188,45 @@
                     <p><a href="mailto:info@uaeroyal.fund" style="color: var(--deep-navy); border-bottom: 1px solid var(--royal-gold);">info@uaeroyal.fund</a></p>
                 </div>
             </div>
+
+            <!-- === 新增：留言表单 === -->
+            <div class="form-section">
+                <h3 class="form-title">Send a Message</h3>
+                
+                <!-- 
+                   表单配置：
+                   action: 您的 FormSubmit 链接
+                   _captcha: false (关闭验证码，提高速度)
+                   _next: 提交后跳转回联系页面 (请修改为您网站的真实 contact.html 地址)
+                -->
+                <form id="contactForm" class="contact-form" action="https://formsubmit.co/el/riyexi" method="POST">
+                    
+                    <!-- 跳转配置 -->
+                    <input type="hidden" name="_next" value="https://uaeroyalcapital.github.io/contact.html">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="New Inquiry from Website">
+                    <input type="text" name="_honey" style="display:none"> <!-- 防垃圾 -->
+
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="phone" placeholder="Phone Number (Optional)">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" rows="4" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="send-btn">
+                        Send Message <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- === 表单结束 === -->
+
         </div>
 
         <div class="contact-map">
@@ -179,5 +241,18 @@
     </div>
 
     <footer><p>© 2026 UAE Royal Capital Funding. All Rights Reserved.</p></footer>
+
+    <!-- 简单的表单提交反馈脚本 -->
+    <script>
+        const form = document.getElementById('contactForm');
+        const btn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function() {
+            // 点击后按钮变灰，防止重复提交
+            btn.innerHTML = 'Sending...';
+            btn.style.opacity = '0.7';
+            // btn.disabled = true; // FormSubmit跳转需要表单保持激活，暂不禁用
+        });
+    </script>
 </body>
 </html>
