@@ -36,7 +36,7 @@
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* --- 2. NAVBAR (Unified Version) --- */
+        /* --- 2. NAVBAR --- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             padding: 0 max(5%, calc((100% - 1200px) / 2)); 
@@ -52,7 +52,7 @@
         }
         .logo img { height: 45px; width: auto; object-fit: contain; }
 
-        /* 桌面菜单容器 */
+        /* 菜单容器 */
         .nav-container { display: flex; align-items: center; gap: 2rem; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-links a {
@@ -65,7 +65,6 @@
         }
         .nav-links a:hover::after { width: 100%; }
 
-        /* 捐款按钮 */
         .btn-donate {
             background: var(--deep-navy); color: #fff; padding: 10px 25px; font-weight: 600;
             border-radius: 2px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--deep-navy);
@@ -73,14 +72,14 @@
         }
         .btn-donate:hover { background: #fff; color: var(--deep-navy); border-color: var(--royal-gold); }
 
-        /* 汉堡菜单图标 */
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
         .bar { width: 25px; height: 3px; background-color: var(--deep-navy); transition: 0.4s; }
 
-        /* --- 3. HERO SECTION --- */
+        /* --- 3. HERO SECTION (已添加背景图) --- */
         .sub-hero {
-            height: 45vh; margin-top: 80px; /* 适配固定导航栏 */
-            background: linear-gradient(rgba(14, 30, 53, 0.7), rgba(14, 30, 53, 0.8)), url('https://images.unsplash.com/photo-1518684079-3c830dcef6c0?q=80&w=1920&auto=format&fit=crop');
+            height: 45vh; margin-top: 80px;
+            /* 背景图片 */
+            background: linear-gradient(rgba(14, 30, 53, 0.7), rgba(14, 30, 53, 0.8)), url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1920&auto=format&fit=crop');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center;
         }
@@ -90,26 +89,32 @@
         /* --- 4. NEWS CONTAINER --- */
         .news-container { max-width: 1000px; margin: -50px auto 4rem auto; padding: 0 20px; position: relative; z-index: 2; }
         
+        /* 筛选栏 */
         .news-filter-bar {
             background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;
             flex-wrap: wrap; gap: 15px;
         }
-        .filter-group { display: flex; gap: 20px; }
-        .filter-btn { cursor: pointer; font-weight: 600; color: #888; border-bottom: 2px solid transparent; padding-bottom: 5px; font-size: 0.9rem; }
-        .filter-btn.active, .filter-btn:hover { color: var(--deep-navy); border-color: var(--royal-gold); }
+        .filter-group { display: flex; gap: 20px; flex-wrap: wrap; }
+        .filter-btn { cursor: pointer; font-weight: 600; color: #888; border-bottom: 2px solid transparent; padding-bottom: 5px; font-size: 0.9rem; transition: 0.3s; }
+        .filter-btn:hover { color: var(--deep-navy); }
+        .filter-btn.active { color: var(--deep-navy); border-color: var(--royal-gold); }
         
-        .search-box { display: flex; align-items: center; background: #f5f5f5; padding: 8px 15px; border-radius: 20px; }
-        .search-box input { border: none; background: transparent; outline: none; font-size: 0.9rem; width: 150px; }
-        .search-box i { color: #888; }
+        .search-box { display: flex; align-items: center; background: #f5f5f5; padding: 8px 15px; border-radius: 20px; border: 1px solid transparent; transition: 0.3s; }
+        .search-box:focus-within { border-color: var(--royal-gold); background: #fff; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 0.9rem; width: 180px; color: var(--deep-navy); }
+        .search-box i { color: #888; cursor: pointer; }
 
-        .news-list { display: flex; flex-direction: column; gap: 2rem; }
+        /* 新闻列表 */
+        .news-list { display: flex; flex-direction: column; gap: 2rem; min-height: 400px; }
 
+        /* 动态生成的卡片样式 */
         .news-item {
             background: #fff; display: flex; border-radius: 6px; overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.4s ease; opacity: 0; transform: translateY(20px);
-            animation: fadeUp 0.8s ease forwards;
+            transition: all 0.4s ease; 
+            /* 动画 */
+            opacity: 0; animation: fadeUp 0.6s ease forwards;
         }
         .news-item:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(14, 30, 53, 0.1); border-color: rgba(197, 160, 89, 0.3); }
 
@@ -126,7 +131,7 @@
         .news-meta { display: flex; gap: 15px; font-size: 0.85rem; color: #999; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .news-meta i { color: var(--royal-gold); margin-right: 5px; }
         .news-title { font-family: var(--font-serif); font-size: 1.6rem; color: var(--deep-navy); margin: 0 0 1rem 0; line-height: 1.3; font-weight: 700; }
-        .news-title:hover { color: var(--royal-gold); }
+        .news-title a:hover { color: var(--royal-gold); }
         .news-excerpt { font-size: 1rem; color: #555; margin-bottom: 1.5rem; line-height: 1.6; }
         
         .read-more-link {
@@ -135,6 +140,10 @@
         }
         .read-more-link:hover { color: var(--royal-gold); gap: 12px; }
 
+        /* 无结果提示 */
+        .no-results { text-align: center; color: #888; font-size: 1.2rem; padding: 2rem; width: 100%; }
+
+        /* 分页器 */
         .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 4rem; }
         .page-btn { 
             width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
@@ -142,6 +151,7 @@
         }
         .page-btn.active { background: var(--deep-navy); color: #fff; border-color: var(--deep-navy); }
         .page-btn:hover:not(.active) { border-color: var(--royal-gold); color: var(--royal-gold); }
+        .page-btn.disabled { opacity: 0.5; cursor: not-allowed; }
 
         footer { background: #050A10; color: #fff; text-align: center; padding: 2rem; margin-top: 4rem; }
 
@@ -152,8 +162,6 @@
             .navbar { padding: 0 1.5rem; height: 70px; }
             .logo { font-size: 1.1rem; }
             .hamburger { display: flex; }
-            
-            /* 手机菜单容器 */
             .nav-container {
                 position: fixed; top: 70px; left: 0; width: 100%; background-color: #fff;
                 flex-direction: column; align-items: center; padding: 2rem 0;
@@ -164,13 +172,14 @@
             .nav-links { flex-direction: column; gap: 20px; width: 100%; text-align: center; }
             .nav-links a { font-size: 1rem; display: block; padding: 10px 0; width: 100%; }
             .btn-donate { width: 80%; text-align: center; margin-top: 20px; }
-            
             .hamburger.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
 
             .sub-hero h1 { font-size: 2.2rem; }
-            .news-filter-bar { flex-direction: column; align-items: flex-start; }
+            .news-filter-bar { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .search-box { width: 100%; }
+            .search-box input { width: 100%; }
             .news-item { flex-direction: column; }
             .news-thumb { width: 100%; height: 220px; }
             .news-content { width: 100%; padding: 1.5rem; }
@@ -180,7 +189,7 @@
 </head>
 <body>
 
-    <!-- 导航栏 (统一修正版) -->
+    <!-- 导航栏 -->
     <nav class="navbar">
         <a href="index.html" class="logo">
             <img src="images/logo.png" alt="Logo"> 
@@ -213,134 +222,273 @@
 
     <div class="news-container">
         
-        <!-- 筛选栏 -->
+        <!-- 筛选 & 搜索栏 -->
         <div class="news-filter-bar">
-            <div class="filter-group">
-                <span class="filter-btn active">All News</span>
-                <span class="filter-btn">Technology</span>
-                <span class="filter-btn">Royal Activities</span>
-                <span class="filter-btn">Economy</span>
+            <div class="filter-group" id="category-filters">
+                <!-- 这里的按钮由 JS 监听点击事件 -->
+                <span class="filter-btn active" data-category="All">All News</span>
+                <span class="filter-btn" data-category="Technology">Technology</span>
+                <span class="filter-btn" data-category="Economy">Economy</span>
+                <span class="filter-btn" data-category="Royal Activities">Royal Activities</span>
+                <span class="filter-btn" data-category="Infrastructure">Infrastructure</span>
             </div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search news...">
+                <input type="text" id="search-input" placeholder="Search news titles...">
             </div>
         </div>
 
-        <div class="news-list">
-            
-            <!-- News 1: Musk & Dubai -->
-            <article class="news-item" style="animation-delay: 0.1s;">
-                <div class="news-thumb">
-                    <span class="category-tag">Technology</span>
-                    <a href="news_pages/news_new_1.html">
-                        <img src="images/musk_dubai.jpg" alt="Elon Musk and Hamdan">
-                    </a>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fa-regular fa-calendar"></i> Nov 12, 2025</span>
-                        <span><i class="fa-regular fa-user"></i> Editorial Team</span>
-                    </div>
-                    <h3 class="news-title">
-                        <a href="news_pages/news_new_1.html">Elon Musk Meets Crown Prince Hamdan to Launch "Tesla AI City" in Dubai</a>
-                    </h3>
-                    <p class="news-excerpt">In a historic meeting at Zabeel Palace, Sheikh Hamdan and Elon Musk unveiled a multi-billion dollar roadmap for autonomous transport and AI infrastructure...</p>
-                    <a href="news_pages/news_new_1.html" class="read-more-link">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </article>
-
-            <!-- News 2: Qatar Summit -->
-            <article class="news-item" style="animation-delay: 0.2s;">
-                <div class="news-thumb">
-                    <span class="category-tag">Economy</span>
-                    <a href="news_pages/news_new_2.html">
-                        <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=800&auto=format&fit=crop" alt="Qatar Summit">
-                    </a>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fa-regular fa-calendar"></i> Oct 28, 2025</span>
-                        <span><i class="fa-regular fa-user"></i> Press Release</span>
-                    </div>
-                    <h3 class="news-title">
-                        <a href="news_pages/news_new_2.html">Doha Royal Summit: Emir of Qatar Hosts GCC Leaders on Economic Unity</a>
-                    </h3>
-                    <p class="news-excerpt">His Highness Sheikh Tamim bin Hamad Al Thani convened a high-level summit in Doha. The Foundation participated in the closed-door financial roundtable...</p>
-                    <a href="news_pages/news_new_2.html" class="read-more-link">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </article>
-
-            <!-- News 3: Oman Railway -->
-            <article class="news-item" style="animation-delay: 0.3s;">
-                <div class="news-thumb">
-                    <span class="category-tag">Infrastructure</span>
-                    <a href="news_pages/news_new_3.html">
-                        <img src="https://images.unsplash.com/photo-1474540412665-1cdae210ae6b?q=80&w=800&auto=format&fit=crop" alt="Oman Railway">
-                    </a>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fa-regular fa-calendar"></i> Sep 15, 2025</span>
-                        <span><i class="fa-regular fa-user"></i> Regional News</span>
-                    </div>
-                    <h3 class="news-title">
-                        <a href="news_pages/news_new_3.html">Sultan Haitham and UAE President Inspect Joint High-Speed Railway</a>
-                    </h3>
-                    <p class="news-excerpt">A landmark moment for regional connectivity as leaders of Oman and UAE reviewed the progress of the $3B railway network...</p>
-                    <a href="news_pages/news_new_3.html" class="read-more-link">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </article>
-
-            <!-- News 4: Space Strategy -->
-            <article class="news-item" style="animation-delay: 0.4s;">
-                <div class="news-thumb">
-                    <span class="category-tag">Innovation</span>
-                    <a href="news_pages/news_new_4.html">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop" alt="UAE Space">
-                    </a>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fa-regular fa-calendar"></i> Dec 02, 2025</span>
-                        <span><i class="fa-regular fa-user"></i> Royal Decree</span>
-                    </div>
-                    <h3 class="news-title">
-                        <a href="news_pages/news_new_4.html">National Day Address: UAE President Announces "Mars 2117" Acceleration</a>
-                    </h3>
-                    <p class="news-excerpt">Celebrating the 54th National Day, the President announced major grants for private space-tech companies. UAE Royal Capital Funding will manage...</p>
-                    <a href="news_pages/news_new_4.html" class="read-more-link">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </article>
-
+        <!-- 新闻列表容器 (由 JS 填充) -->
+        <div id="news-list-container" class="news-list">
+            <!-- News items will be injected here by JavaScript -->
         </div>
 
-        <!-- 分页器 -->
-        <div class="pagination">
-            <div class="page-btn active">1</div>
-            <div class="page-btn">2</div>
-            <div class="page-btn">3</div>
-            <div class="page-btn"><i class="fa-solid fa-angle-right"></i></div>
+        <!-- 分页器 (由 JS 逻辑控制) -->
+        <div id="pagination-container" class="pagination">
+            <!-- Pagination buttons will be injected here -->
         </div>
 
     </div>
 
     <footer><p>© 2026 UAE Royal Capital Funding. All Rights Reserved.</p></footer>
 
-    <!-- 手机菜单控制脚本 -->
     <script>
+        // --- 1. 新闻数据源 (在此处添加新新闻) ---
+        // 格式: date: "YYYY-MM-DD" (用于排序), displayDate: "Nov 12, 2025" (用于显示)
+        const newsData = [
+            {
+                title: "National Day Address: UAE President Announces \"Mars 2117\" Acceleration",
+                date: "2025-12-02",
+                displayDate: "Dec 02, 2025",
+                category: "Technology", 
+                image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+                excerpt: "Celebrating the 54th National Day, the President announced major grants for private space-tech companies. UAE Royal Capital Funding will manage the Orbital Innovation Grant...",
+                link: "news_pages/news_new_4.html"
+            },
+            {
+                title: "Elon Musk Meets Crown Prince Hamdan to Launch \"Tesla AI City\" in Dubai",
+                date: "2025-11-12",
+                displayDate: "Nov 12, 2025",
+                category: "Technology",
+                image: "images/musk_dubai.jpg",
+                excerpt: "In a historic meeting at Zabeel Palace, Sheikh Hamdan and Elon Musk unveiled a multi-billion dollar roadmap for autonomous transport and AI infrastructure in Dubai South.",
+                link: "news_pages/news_new_1.html"
+            },
+            {
+                title: "Doha Royal Summit: Emir of Qatar Hosts GCC Leaders on Economic Unity",
+                date: "2025-10-28",
+                displayDate: "Oct 28, 2025",
+                category: "Economy",
+                image: "https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=800&auto=format&fit=crop",
+                excerpt: "His Highness Sheikh Tamim bin Hamad Al Thani convened a high-level summit in Doha. The Foundation participated in the closed-door financial roundtable regarding digital currency.",
+                link: "news_pages/news_new_2.html"
+            },
+            {
+                title: "Sultan Haitham and UAE President Inspect Joint High-Speed Railway",
+                date: "2025-09-15",
+                displayDate: "Sep 15, 2025",
+                category: "Infrastructure",
+                image: "https://images.unsplash.com/photo-1474540412665-1cdae210ae6b?q=80&w=800&auto=format&fit=crop",
+                excerpt: "A landmark moment for regional connectivity as leaders of Oman and UAE reviewed the progress of the $3B railway network. Our Fund has allocated resources to logistics hubs.",
+                link: "news_pages/news_new_3.html"
+            },
+            // --- 以下是模拟新闻，用于演示翻页功能 (Total 8 items) ---
+            {
+                title: "Royal Delegation Visits Singapore for Green Tech Symposium",
+                date: "2025-08-20",
+                displayDate: "Aug 20, 2025",
+                category: "Royal Activities",
+                image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
+                excerpt: "A strategic visit to Southeast Asia to explore partnerships in sustainable urban planning and vertical farming technologies.",
+                link: "#"
+            },
+            {
+                title: "Q3 Financial Report: Sustainable Assets Outperform Traditional Energy",
+                date: "2025-07-10",
+                displayDate: "Jul 10, 2025",
+                category: "Economy",
+                image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=800&auto=format&fit=crop",
+                excerpt: "The quarterly report indicates a 15% ROI on green bonds, validating the Foundation's shift towards ESG-compliant investment portfolios.",
+                link: "#"
+            },
+            {
+                title: "New AI Research Center Inaugurated in Abu Dhabi",
+                date: "2025-06-05",
+                displayDate: "Jun 05, 2025",
+                category: "Technology",
+                image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=800&auto=format&fit=crop",
+                excerpt: "Partnering with global universities to establish a state-of-the-art research facility dedicated to Arabic Natural Language Processing (NLP).",
+                link: "#"
+            },
+            {
+                title: "Foundation Donates $50M for Global Clean Water Initiatives",
+                date: "2025-05-15",
+                displayDate: "May 15, 2025",
+                category: "Royal Activities",
+                image: "https://images.unsplash.com/photo-1538300342682-cf57afb97285?q=80&w=800&auto=format&fit=crop",
+                excerpt: "In line with the Year of Sustainability, the Board approves a significant grant to support water infrastructure in developing regions.",
+                link: "#"
+            }
+        ];
+
+        // --- 2. 逻辑控制变量 ---
+        const itemsPerPage = 6; // 每页显示6个
+        let currentPage = 1;
+        let currentCategory = 'All';
+        let searchQuery = '';
+        let filteredData = [];
+
+        // DOM 元素
+        const newsContainer = document.getElementById('news-list-container');
+        const paginationContainer = document.getElementById('pagination-container');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const searchInput = document.getElementById('search-input');
+
+        // --- 3. 初始化 ---
+        function init() {
+            // 默认按日期降序排序 (Newest first)
+            newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+            applyFilters(); // 初始加载
+        }
+
+        // --- 4. 筛选逻辑 ---
+        function applyFilters() {
+            // 过滤
+            filteredData = newsData.filter(item => {
+                const matchesCategory = currentCategory === 'All' || item.category === currentCategory || (currentCategory === 'Royal Activities' && item.category === 'Royal Activities');
+                const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            // 重置到第一页
+            currentPage = 1;
+            renderNews();
+            renderPagination();
+        }
+
+        // --- 5. 渲染新闻列表 ---
+        function renderNews() {
+            newsContainer.innerHTML = ''; // 清空当前
+
+            if (filteredData.length === 0) {
+                newsContainer.innerHTML = '<div class="no-results">No news found matching your criteria.</div>';
+                return;
+            }
+
+            // 计算分页切片
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+
+            // 生成 HTML
+            pageData.forEach((item, index) => {
+                // 动画延迟
+                const delay = index * 0.1;
+                
+                const html = `
+                    <article class="news-item" style="animation-delay: ${delay}s;">
+                        <div class="news-thumb">
+                            <span class="category-tag">${item.category}</span>
+                            <a href="${item.link}">
+                                <img src="${item.image}" alt="${item.title}">
+                            </a>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span><i class="fa-regular fa-calendar"></i> ${item.displayDate}</span>
+                                <span><i class="fa-regular fa-folder-open"></i> ${item.category}</span>
+                            </div>
+                            <h3 class="news-title">
+                                <a href="${item.link}">${item.title}</a>
+                            </h3>
+                            <p class="news-excerpt">${item.excerpt}</p>
+                            <a href="${item.link}" class="read-more-link">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                `;
+                newsContainer.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        // --- 6. 渲染分页器 ---
+        function renderPagination() {
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+            if (totalPages <= 1) return; // 只有一页时不显示分页
+
+            // Prev Button
+            const prevBtn = document.createElement('div');
+            prevBtn.className = `page-btn ${currentPage === 1 ? 'disabled' : ''}`;
+            prevBtn.innerHTML = '<i class="fa-solid fa-angle-left"></i>';
+            prevBtn.onclick = () => changePage(currentPage - 1);
+            paginationContainer.appendChild(prevBtn);
+
+            // Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('div');
+                btn.className = `page-btn ${currentPage === i ? 'active' : ''}`;
+                btn.innerText = i;
+                btn.onclick = () => changePage(i);
+                paginationContainer.appendChild(btn);
+            }
+
+            // Next Button
+            const nextBtn = document.createElement('div');
+            nextBtn.className = `page-btn ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextBtn.innerHTML = '<i class="fa-solid fa-angle-right"></i>';
+            nextBtn.onclick = () => changePage(currentPage + 1);
+            paginationContainer.appendChild(nextBtn);
+        }
+
+        // --- 7. 切换页码 ---
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            renderNews();
+            renderPagination();
+            // 滚动回顶部
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        // --- 8. 事件监听 ---
+        
+        // 类别点击
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有 active
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // 激活当前
+                btn.classList.add('active');
+                // 更新状态
+                currentCategory = btn.getAttribute('data-category');
+                applyFilters();
+            });
+        });
+
+        // 搜索输入
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            applyFilters();
+        });
+
+        // 手机菜单控制
         const hamburger = document.getElementById('hamburger-btn');
         const navMenu = document.getElementById('nav-menu');
-
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-
         function closeMenu() {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }
+
+        // 启动
+        init();
+
     </script>
 </body>
 </html>
