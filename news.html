@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Center - UAE ROYAL CAPITAL</title>
     <link rel="icon" type="image/png" href="images/logo.png">
+    
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -28,7 +29,6 @@
             color: var(--text-body); 
             margin: 0; 
             line-height: 1.7; 
-            /* 背景纹理 */
             background-image: radial-gradient(#C5A059 0.5px, transparent 0.5px), radial-gradient(#C5A059 0.5px, #FAFAF5 0.5px);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
@@ -36,55 +36,50 @@
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* --- 2. NAVBAR --- */
-       /* --- 替换原有的 .navbar 样式 --- */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0; /* 确保紧贴左侧 */
-    width: 100%;
-    height: 80px; /* 固定高度，更稳定 */
-    
-    /* !!! 核心修改 !!! */
-    /* 之前是 5%，现在改为 10% 或者使用 max-width 逻辑 */
-    /* 这样可以让导航栏的内容往中间靠，与正文对齐 */
-    padding: 0 max(5%, calc((100% - 1200px) / 2)); 
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.98); /* 稍微增加不透明度 */
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-    transition: 0.4s;
-    box-sizing: border-box; /* 防止 padding 撑大页面产生横向滚动条 */
-}
+        /* --- 2. NAVBAR (Unified Version) --- */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            padding: 0 max(5%, calc((100% - 1200px) / 2)); 
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); transition: 0.4s;
+            box-sizing: border-box;
+        }
 
-/* 配合固定高度，Logo 图片微调 */
-.logo img {
-    height: 45px; /* 稍微调大一点点 */
-    width: auto;
-    object-fit: contain;
-    margin-right: 10px;
-}
+        .logo {
+            font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--deep-navy);
+            letter-spacing: 1px; display: flex; align-items: center; gap: 10px; z-index: 1001;
+        }
+        .logo img { height: 45px; width: auto; object-fit: contain; }
 
-/* 移动端适配：手机屏幕小，边距要小一点 */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 1.5rem; /* 手机上左右留一点缝隙即可 */
-        height: 70px;
-    }
-}
-        .logo { display: flex; align-items: center; font-family: var(--font-serif); font-weight: 700; color: var(--deep-navy); font-size: 1.2rem; gap: 10px; }
-        .logo img { height: 40px; width: auto; object-fit: contain; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { font-size: 0.9rem; text-transform: uppercase; color: var(--deep-navy); font-weight: 500; position: relative; }
-        .nav-links a:hover { color: var(--royal-gold); }
+        /* 桌面菜单容器 */
+        .nav-container { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-navy);
+            font-weight: 500; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--royal-gold); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* 捐款按钮 */
+        .btn-donate {
+            background: var(--deep-navy); color: #fff; padding: 10px 25px; font-weight: 600;
+            border-radius: 2px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--deep-navy);
+            font-size: 0.8rem;
+        }
+        .btn-donate:hover { background: #fff; color: var(--deep-navy); border-color: var(--royal-gold); }
+
+        /* 汉堡菜单图标 */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .bar { width: 25px; height: 3px; background-color: var(--deep-navy); transition: 0.4s; }
 
         /* --- 3. HERO SECTION --- */
         .sub-hero {
-            height: 45vh; margin-top: 60px;
+            height: 45vh; margin-top: 80px; /* 适配固定导航栏 */
             background: linear-gradient(rgba(14, 30, 53, 0.7), rgba(14, 30, 53, 0.8)), url('https://images.unsplash.com/photo-1518684079-3c830dcef6c0?q=80&w=1920&auto=format&fit=crop');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center;
@@ -95,7 +90,6 @@
         /* --- 4. NEWS CONTAINER --- */
         .news-container { max-width: 1000px; margin: -50px auto 4rem auto; padding: 0 20px; position: relative; z-index: 2; }
         
-        /* 筛选栏 (新增) */
         .news-filter-bar {
             background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;
@@ -109,57 +103,38 @@
         .search-box input { border: none; background: transparent; outline: none; font-size: 0.9rem; width: 150px; }
         .search-box i { color: #888; }
 
-        /* 新闻卡片列表 */
         .news-list { display: flex; flex-direction: column; gap: 2rem; }
 
         .news-item {
-            background: #fff;
-            display: flex; 
-            border-radius: 6px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
-            
-            /* 初始状态：用于动画 */
-            opacity: 0; transform: translateY(20px);
+            background: #fff; display: flex; border-radius: 6px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.4s ease; opacity: 0; transform: translateY(20px);
             animation: fadeUp 0.8s ease forwards;
         }
-        .news-item:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 40px rgba(14, 30, 53, 0.1); 
-            border-color: rgba(197, 160, 89, 0.3);
-        }
+        .news-item:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(14, 30, 53, 0.1); border-color: rgba(197, 160, 89, 0.3); }
 
         .news-thumb { width: 35%; min-width: 280px; position: relative; overflow: hidden; }
         .news-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
         .news-item:hover .news-thumb img { transform: scale(1.05); }
         
-        /* 类别标签 */
         .category-tag {
-            position: absolute; top: 15px; left: 15px;
-            background: var(--royal-gold); color: #fff;
-            padding: 4px 10px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-            border-radius: 2px;
+            position: absolute; top: 15px; left: 15px; background: var(--royal-gold); color: #fff;
+            padding: 4px 10px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 2px;
         }
 
         .news-content { padding: 2.5rem; width: 65%; display: flex; flex-direction: column; justify-content: center; }
-        
         .news-meta { display: flex; gap: 15px; font-size: 0.85rem; color: #999; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .news-meta i { color: var(--royal-gold); margin-right: 5px; }
-
         .news-title { font-family: var(--font-serif); font-size: 1.6rem; color: var(--deep-navy); margin: 0 0 1rem 0; line-height: 1.3; font-weight: 700; }
         .news-title:hover { color: var(--royal-gold); }
-        
-        .news-excerpt { font-size: 1rem; color: #555; margin-bottom: 1.5rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-excerpt { font-size: 1rem; color: #555; margin-bottom: 1.5rem; line-height: 1.6; }
         
         .read-more-link {
-            display: inline-flex; align-items: center; gap: 8px;
-            color: var(--deep-navy); font-weight: 600; font-size: 0.9rem;
-            border-bottom: 1px solid transparent; width: fit-content;
+            display: inline-flex; align-items: center; gap: 8px; color: var(--deep-navy);
+            font-weight: 600; font-size: 0.9rem; border-bottom: 1px solid transparent; width: fit-content;
         }
-        .read-more-link:hover { color: var(--royal-gold); gap: 12px; } /* 悬停时箭头移动 */
+        .read-more-link:hover { color: var(--royal-gold); gap: 12px; }
 
-        /* 分页器 (新增) */
         .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 4rem; }
         .page-btn { 
             width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
@@ -168,15 +143,32 @@
         .page-btn.active { background: var(--deep-navy); color: #fff; border-color: var(--deep-navy); }
         .page-btn:hover:not(.active) { border-color: var(--royal-gold); color: var(--royal-gold); }
 
-        /* 页脚 */
         footer { background: #050A10; color: #fff; text-align: center; padding: 2rem; margin-top: 4rem; }
 
-        /* 动画关键帧 */
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         /* 移动端适配 */
-        @media(max-width: 768px) {
-            .navbar { padding: 1rem; } .nav-links { display: none; }
+        @media(max-width: 900px) {
+            .navbar { padding: 0 1.5rem; height: 70px; }
+            .logo { font-size: 1.1rem; }
+            .hamburger { display: flex; }
+            
+            /* 手机菜单容器 */
+            .nav-container {
+                position: fixed; top: 70px; left: 0; width: 100%; background-color: #fff;
+                flex-direction: column; align-items: center; padding: 2rem 0;
+                border-bottom: 2px solid var(--royal-gold); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transform: translateY(-150%); transition: transform 0.5s ease; z-index: 1000;
+            }
+            .nav-container.active { transform: translateY(0); }
+            .nav-links { flex-direction: column; gap: 20px; width: 100%; text-align: center; }
+            .nav-links a { font-size: 1rem; display: block; padding: 10px 0; width: 100%; }
+            .btn-donate { width: 80%; text-align: center; margin-top: 20px; }
+            
+            .hamburger.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+
             .sub-hero h1 { font-size: 2.2rem; }
             .news-filter-bar { flex-direction: column; align-items: flex-start; }
             .news-item { flex-direction: column; }
@@ -188,17 +180,28 @@
 </head>
 <body>
 
-    <!-- 导航栏 -->
+    <!-- 导航栏 (统一修正版) -->
     <nav class="navbar">
         <a href="index.html" class="logo">
             <img src="images/logo.png" alt="Logo"> 
             UAE ROYAL CAPITAL
         </a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="news.html" style="color:var(--royal-gold)">News</a>
-            <a href="about.html">About Us</a>
-            <a href="contact.html">Contact</a>
+
+        <div class="hamburger" id="hamburger-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <div class="nav-container" id="nav-menu">
+            <div class="nav-links">
+                <a href="index.html" onclick="closeMenu()">Home</a>
+                <a href="about.html" onclick="closeMenu()">About Us</a>
+                <a href="news.html" style="color:var(--royal-gold)" onclick="closeMenu()">News</a>
+                <a href="careers.html" onclick="closeMenu()">Careers</a>
+                <a href="contact.html" onclick="closeMenu()">Contact</a>
+            </div>
+            <a href="donate.html" class="btn-donate" onclick="closeMenu()">Donate</a>
         </div>
     </nav>
 
@@ -210,7 +213,7 @@
 
     <div class="news-container">
         
-        <!-- 1. 筛选栏 (优化点) -->
+        <!-- 筛选栏 -->
         <div class="news-filter-bar">
             <div class="filter-group">
                 <span class="filter-btn active">All News</span>
@@ -224,15 +227,14 @@
             </div>
         </div>
 
-        <div class="news-list" id="news-list"></div>
+        <div class="news-list">
             
-            <!-- News 1: Musk & Dubai (CNN 图片) -->
+            <!-- News 1: Musk & Dubai -->
             <article class="news-item" style="animation-delay: 0.1s;">
                 <div class="news-thumb">
                     <span class="category-tag">Technology</span>
                     <a href="news_pages/news_new_1.html">
-                    <!-- 修改 src 为本地路径 -->
-                    <img src="images/musk_dubai.jpg" alt="Elon Musk and Hamdan">
+                        <img src="images/musk_dubai.jpg" alt="Elon Musk and Hamdan">
                     </a>
                 </div>
                 <div class="news-content">
@@ -313,7 +315,7 @@
 
         </div>
 
-        <!-- 2. 分页器 (优化点) -->
+        <!-- 分页器 -->
         <div class="pagination">
             <div class="page-btn active">1</div>
             <div class="page-btn">2</div>
@@ -324,43 +326,21 @@
     </div>
 
     <footer><p>© 2026 UAE Royal Capital Funding. All Rights Reserved.</p></footer>
+
+    <!-- 手机菜单控制脚本 -->
     <script>
-fetch("data/news.json")
-  .then(res => res.json())
-  .then(news => {
-    const list = document.getElementById("news-list");
+        const hamburger = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
 
-    news.forEach((item, index) => {
-      const article = document.createElement("article");
-      article.className = "news-item";
-      article.style.animationDelay = `${index * 0.1}s`;
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
 
-      article.innerHTML = `
-        <div class="news-thumb">
-          <span class="category-tag">${item.category}</span>
-          <a href="${item.url}">
-            <img src="${item.image}" alt="">
-          </a>
-        </div>
-        <div class="news-content">
-          <div class="news-meta">
-            <span><i class="fa-regular fa-calendar"></i> ${item.date}</span>
-            <span><i class="fa-regular fa-user"></i> ${item.author}</span>
-          </div>
-          <h3 class="news-title">
-            <a href="${item.url}">${item.title}</a>
-          </h3>
-          <p class="news-excerpt">${item.excerpt}</p>
-          <a href="${item.url}" class="read-more-link">
-            Read Full Article <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      `;
-
-      list.appendChild(article);
-    });
-  });
-</script>
-
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    </script>
 </body>
 </html>
