@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - UAE ROYAL CAPITAL</title>
-    <link rel="icon" type="image/png" href="images/logo.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -31,7 +31,7 @@
         
         a { text-decoration: none; transition: 0.3s; }
 
-        /* --- 2. NAVBAR (Fixed & Centered) --- */
+        /* --- 2. NAVBAR (统一修正版) --- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             padding: 0 max(5%, calc((100% - 1200px) / 2)); 
@@ -40,11 +40,29 @@
             z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); transition: 0.4s;
             box-sizing: border-box;
         }
-        .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-weight: 700; color: var(--deep-navy); font-size: 1.4rem; }
+
+        .logo {
+            font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--deep-navy);
+            letter-spacing: 1px; display: flex; align-items: center; gap: 10px; z-index: 1001;
+        }
         .logo img { height: 45px; width: auto; object-fit: contain; }
-        .nav-links { display: flex; gap: 1.5rem; }
-        .nav-links a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-navy); font-weight: 500; }
-        .nav-links a:hover { color: var(--royal-gold); }
+
+        /* 桌面菜单 */
+        .nav-container { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-navy);
+            font-weight: 500; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--royal-gold); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* 汉堡菜单图标 */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .bar { width: 25px; height: 3px; background-color: var(--deep-navy); transition: 0.4s; }
 
         /* --- 3. HERO --- */
         .sub-hero {
@@ -68,19 +86,15 @@
 
         .contact-info { 
             flex: 1; padding: 4rem; min-width: 350px; 
-            border-right: 1px solid #f0f0f0;
-            position: relative;
+            border-right: 1px solid #f0f0f0; position: relative;
         }
-        
         .contact-info::before {
             content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--royal-gold);
         }
 
         .contact-map { 
-            flex: 1; min-width: 350px; background: #0E1E35; 
-            position: relative; overflow: hidden;
+            flex: 1; min-width: 350px; background: #0E1E35; position: relative; overflow: hidden;
         }
-        
         .contact-map img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
         .contact-map:hover img { transform: scale(1.05); opacity: 0.8; }
         
@@ -94,25 +108,18 @@
         .icon-box { 
             width: 50px; height: 50px; background: rgba(197, 160, 89, 0.1); 
             display: flex; align-items: center; justify-content: center; 
-            border-radius: 50%; color: var(--royal-gold); font-size: 1.2rem;
-            flex-shrink: 0;
+            border-radius: 50%; color: var(--royal-gold); font-size: 1.2rem; flex-shrink: 0;
         }
         
         .info-content h4 { font-family: var(--font-serif); color: var(--deep-navy); margin-bottom: 5px; font-size: 1.1rem; }
         .info-content p { margin: 0; color: #666; font-size: 0.95rem; line-height: 1.6; }
         
         /* 邮箱链接样式 */
-        .email-link {
-            display: block; color: var(--deep-navy); text-decoration: none; 
-            border-bottom: 1px solid transparent; transition: 0.3s;
-        }
+        .email-link { display: block; color: var(--deep-navy); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
         .email-link:hover { color: var(--royal-gold); border-bottom-color: var(--royal-gold); }
         .email-label { font-size: 0.8rem; color: #999; margin-right: 5px; text-transform: uppercase; }
 
-        .intro-text { 
-            font-size: 1.2rem; color: var(--deep-navy); margin-bottom: 3rem; 
-            font-family: var(--font-serif); font-style: italic; line-height: 1.5;
-        }
+        .intro-text { font-size: 1.2rem; color: var(--deep-navy); margin-bottom: 3rem; font-family: var(--font-serif); font-style: italic; line-height: 1.5; }
 
         /* --- 5. CONTACT FORM --- */
         .form-section { margin-top: 3rem; border-top: 1px solid #eee; padding-top: 2rem; }
@@ -121,12 +128,9 @@
         .contact-form .form-group { margin-bottom: 1rem; }
         .contact-form input, .contact-form textarea {
             width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;
-            font-family: var(--font-sans); font-size: 0.95rem; transition: 0.3s;
-            background: #fafbfc;
+            font-family: var(--font-sans); font-size: 0.95rem; transition: 0.3s; background: #fafbfc;
         }
-        .contact-form input:focus, .contact-form textarea:focus { 
-            border-color: var(--royal-gold); outline: none; background: #fff;
-        }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--royal-gold); outline: none; background: #fff; }
         
         .send-btn {
             background: var(--deep-navy); color: #fff; padding: 12px 30px; border: none; border-radius: 2px;
@@ -140,8 +144,23 @@
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        @media(max-width: 768px) {
-            .navbar { padding: 0 1.5rem; height: 70px; } .nav-links { display: none; }
+        /* Mobile */
+        @media(max-width: 900px) {
+            .navbar { padding: 0 1.5rem; height: 70px; }
+            .logo { font-size: 1.1rem; }
+            .hamburger { display: flex; }
+            .nav-container {
+                position: fixed; top: 70px; left: 0; width: 100%; background-color: #fff;
+                flex-direction: column; align-items: center; padding: 2rem 0;
+                border-bottom: 2px solid var(--royal-gold); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transform: translateY(-150%); transition: transform 0.5s ease; z-index: 1000;
+            }
+            .nav-container.active { transform: translateY(0); }
+            .nav-links { flex-direction: column; gap: 20px; width: 100%; text-align: center; }
+            .nav-links a { font-size: 1rem; display: block; padding: 10px 0; width: 100%; }
+            .hamburger.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
             .contact-info { padding: 2rem; }
             .contact-map { height: 300px; }
         }
@@ -149,15 +168,23 @@
 </head>
 <body>
 
+    <!-- 导航栏 -->
     <nav class="navbar">
         <a href="index.html" class="logo">
             <img src="images/logo.png" alt="Logo"> 
             UAE ROYAL CAPITAL
         </a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="careers.html">Careers</a>
-            <a href="contact.html" style="color:var(--royal-gold)">Contact</a>
+        <div class="hamburger" id="hamburger-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="nav-container" id="nav-menu">
+            <div class="nav-links">
+                <a href="index.html" onclick="closeMenu()">Home</a>
+                <a href="careers.html" onclick="closeMenu()">Careers</a>
+                <a href="contact.html" onclick="closeMenu()" style="color:var(--royal-gold)">Contact</a>
+            </div>
         </div>
     </nav>
 
@@ -191,7 +218,6 @@
                 <div class="icon-box"><i class="fa-solid fa-envelope-open-text"></i></div>
                 <div class="info-content">
                     <h4>Official Emails</h4>
-                    <!-- 两个邮箱展示 -->
                     <p>
                         <span class="email-label">General:</span> 
                         <a href="mailto:info@uaeroyal.fund" class="email-link">info@uaeroyal.fund</a>
@@ -203,13 +229,10 @@
                 </div>
             </div>
 
-            <!-- === 简洁留言表单 === -->
+            <!-- Form -->
             <div class="form-section">
                 <h3 class="form-title">Send a Message</h3>
-                
                 <form id="contactForm" class="contact-form" action="https://formsubmit.co/el/riyexi" method="POST">
-                    
-                    <!-- 跳转回 contact.html -->
                     <input type="hidden" name="_next" value="https://uaeroyalcapital.github.io/contact.html">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_subject" value="New Inquiry from Website">
@@ -218,7 +241,6 @@
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Your Name" required>
                     </div>
-                    <!-- 访客的邮箱输入框 -->
                     <div class="form-group">
                         <input type="email" name="email" placeholder="Your Email Address" required>
                     </div>
@@ -228,13 +250,11 @@
                     <div class="form-group">
                         <textarea name="message" rows="4" placeholder="How can we help you?" required></textarea>
                     </div>
-                    
                     <button type="submit" id="submitBtn" class="send-btn">
                         Send Message <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
             </div>
-
         </div>
 
         <div class="contact-map">
@@ -250,9 +270,15 @@
     <footer><p>© 2026 UAE Royal Capital Funding. All Rights Reserved.</p></footer>
 
     <script>
+        // Navbar Logic
+        const hamburger = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navMenu.classList.toggle('active'); });
+        function closeMenu() { hamburger.classList.remove('active'); navMenu.classList.remove('active'); }
+
+        // Form Logic
         const form = document.getElementById('contactForm');
         const btn = document.getElementById('submitBtn');
-
         form.addEventListener('submit', function() {
             btn.innerHTML = 'Sending...';
             btn.style.opacity = '0.7';
