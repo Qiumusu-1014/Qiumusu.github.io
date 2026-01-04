@@ -6,7 +6,9 @@
     <title>Careers - UAE ROYAL CAPITAL</title>
     
     <link rel="icon" type="image/png" href="images/logo.png">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -35,35 +37,60 @@
 
         a { text-decoration: none; transition: 0.3s; }
 
-        /* --- 2. NAVBAR --- */
+        /* --- 2. NAVBAR (统一标准版) --- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            /* 核心居中算法 */
             padding: 0 max(5%, calc((100% - 1200px) / 2)); 
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
             z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); transition: 0.4s;
             box-sizing: border-box;
         }
-        .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-weight: 700; color: var(--deep-navy); font-size: 1.3rem; }
+
+        .logo {
+            font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--deep-navy);
+            letter-spacing: 1px; display: flex; align-items: center; gap: 10px; z-index: 1001;
+        }
         .logo img { height: 45px; width: auto; object-fit: contain; }
+
+        /* 桌面菜单容器 */
         .nav-container { display: flex; align-items: center; gap: 2rem; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-        .nav-links a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-navy); font-weight: 500; }
-        .nav-links a:hover { color: var(--royal-gold); }
+        .nav-links a {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-navy);
+            font-weight: 500; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--royal-gold); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* 捐款按钮 */
+        .btn-donate {
+            background: var(--deep-navy); color: #fff; padding: 10px 25px; font-weight: 600;
+            border-radius: 2px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--deep-navy);
+            font-size: 0.8rem;
+        }
+        .btn-donate:hover { background: #fff; color: var(--deep-navy); border-color: var(--royal-gold); }
+
+        /* 汉堡菜单图标 */
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
         .bar { width: 25px; height: 3px; background-color: var(--deep-navy); transition: 0.4s; }
 
-        /* --- 3. HERO --- */
+        /* --- 3. HERO (Updated Image) --- */
         .sub-hero {
             height: 45vh; margin-top: 80px;
-            background: linear-gradient(rgba(14, 30, 53, 0.7), rgba(14, 30, 53, 0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop');
+            /* 背景图：高端写字楼/玻璃幕墙 */
+            background: linear-gradient(rgba(14, 30, 53, 0.7), rgba(14, 30, 53, 0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff;
         }
         .sub-hero h1 { font-family: var(--font-serif); font-size: 3rem; color: var(--royal-gold); margin-bottom: 10px; }
         .sub-hero p { font-size: 1.2rem; font-weight: 300; letter-spacing: 2px; }
 
-        /* --- 4. SECTIONS --- */
+        /* --- 4. CULTURE --- */
         .culture-section { max-width: 1000px; margin: 4rem auto; padding: 0 20px; text-align: center; }
         .culture-section p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 3rem auto; color: #555; }
         .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
@@ -75,6 +102,7 @@
         .value-item i { font-size: 2.5rem; color: var(--royal-gold); margin-bottom: 1rem; }
         .value-item h4 { font-family: var(--font-serif); margin-bottom: 0.5rem; color: var(--deep-navy); }
 
+        /* --- 5. JOBS --- */
         .jobs-container { max-width: 1000px; margin: 0 auto 5rem auto; padding: 0 20px; }
         .section-header { margin-bottom: 2rem; text-align: left; border-bottom: 2px solid var(--royal-gold); display: inline-block; padding-bottom: 10px; }
         .section-header h2 { font-family: var(--font-serif); color: var(--deep-navy); }
@@ -85,29 +113,41 @@
             animation: fadeUp 0.8s ease forwards; opacity: 0;
         }
         .job-card:hover { border-color: var(--royal-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+
         .job-header {
             padding: 2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #fff; transition: 0.3s;
         }
         .job-header:hover { background: #fafafa; }
         .job-title h3 { font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 5px; color: var(--deep-navy); }
         .job-meta { font-size: 0.85rem; color: #888; display: flex; gap: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .job-meta span i { color: var(--royal-gold); margin-right: 5px; }
         .toggle-icon { font-size: 1rem; color: var(--royal-gold); transition: 0.3s; border: 1px solid #eee; padding: 10px; border-radius: 50%; }
+
         .job-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #fdfdfd; border-top: 1px solid #f0f0f0; }
         .job-details-inner { padding: 2.5rem; color: var(--text-body); }
+        .job-details h4 { font-family: var(--font-serif); font-size: 1.1rem; margin: 1.5rem 0 0.8rem 0; color: var(--deep-navy); }
+        .job-details ul { margin-left: 20px; margin-bottom: 2rem; }
+        .job-details li { margin-bottom: 8px; font-size: 0.95rem; }
+
         .apply-btn {
             display: inline-block; background: var(--deep-navy); color: #fff; padding: 12px 35px;
-            text-transform: uppercase; font-size: 0.85rem; font-weight: 600; border-radius: 2px; transition: 0.3s; cursor: pointer; border:none;
+            text-transform: uppercase; font-size: 0.85rem; font-weight: 600; border-radius: 2px; transition: 0.3s;
+            border: none; cursor: pointer;
         }
         .apply-btn:hover { background: var(--royal-gold); }
-        .job-card.active .toggle-icon { transform: rotate(180deg); background: var(--deep-navy); color: #fff; border-color: var(--deep-navy); }
 
+        .job-card.active .toggle-icon { transform: rotate(180deg); background: var(--deep-navy); color: #fff; border-color: var(--deep-navy); }
+        .job-card.active .job-header { border-bottom: 1px solid #f0f0f0; }
+
+        /* --- 6. GENERAL APPLICATION --- */
         .general-app {
-            background: linear-gradient(rgba(14, 30, 53, 0.95), rgba(14, 30, 53, 0.95)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop');
+            background: linear-gradient(rgba(14, 30, 53, 0.95), rgba(14, 30, 53, 0.95)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop');
             background-size: cover; background-position: center;
             color: #fff; text-align: center; padding: 5rem 20px;
         }
         .general-app h2 { font-family: var(--font-serif); font-size: 2rem; color: var(--royal-gold); margin-bottom: 1rem; }
         .general-app p { color: #ddd; max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; }
+        
         .general-apply-btn {
             background: transparent; border: 2px solid var(--royal-gold); color: var(--royal-gold);
             padding: 12px 40px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s;
@@ -141,7 +181,7 @@
             width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;
             font-family: var(--font-sans); font-size: 1rem; transition: 0.3s;
         }
-        .form-group input:focus { border-color: var(--royal-gold); outline: none; background: #fafbfc; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--royal-gold); outline: none; background: #fafbfc; }
         .error-message { color: red; font-size: 0.8rem; margin-top: 5px; display: none; }
         
         .form-submit-btn {
@@ -154,9 +194,10 @@
 
         footer { background: #050A10; color: #fff; text-align: center; padding: 2rem; }
 
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Mobile */
         @media(max-width: 900px) {
             .navbar { padding: 0 1.5rem; height: 70px; }
             .logo { font-size: 1.1rem; }
@@ -170,6 +211,7 @@
             .nav-container.active { transform: translateY(0); }
             .nav-links { flex-direction: column; gap: 20px; width: 100%; text-align: center; }
             .nav-links a { font-size: 1rem; display: block; padding: 10px 0; width: 100%; }
+            .btn-donate { width: 80%; text-align: center; margin-top: 20px; }
             .hamburger.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
@@ -180,21 +222,28 @@
 </head>
 <body>
 
+    <!-- 导航栏 -->
     <nav class="navbar">
         <a href="index.html" class="logo">
-            <img src="images/logo.png" alt="Logo"> UAE ROYAL CAPITAL
+            <img src="images/logo.png" alt="Logo"> 
+            UAE ROYAL CAPITAL
         </a>
+
         <div class="hamburger" id="hamburger-btn">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
+
         <div class="nav-container" id="nav-menu">
             <div class="nav-links">
                 <a href="index.html" onclick="closeMenu()">Home</a>
-                <a href="careers.html" style="color: var(--royal-gold);" onclick="closeMenu()">Careers</a>
+                <a href="about.html" onclick="closeMenu()">About Us</a>
+                <a href="news.html" onclick="closeMenu()">News</a>
+                <a href="careers.html" onclick="closeMenu()" style="color:var(--royal-gold)">Careers</a>
                 <a href="contact.html" onclick="closeMenu()">Contact</a>
             </div>
+            <a href="donate.html" class="btn-donate" onclick="closeMenu()">Donate</a>
         </div>
     </nav>
 
@@ -218,6 +267,7 @@
     <div class="jobs-container">
         <div class="section-header"><h2>Current Openings</h2></div>
 
+        <!-- Job 1 -->
         <div class="job-card" style="animation-delay: 0.1s;">
             <div class="job-header" onclick="toggleJob(this)">
                 <div class="job-title"><h3>Senior Investment Analyst</h3><div class="job-meta"><span><i class="fa-solid fa-location-dot"></i> Dubai, UAE</span></div></div>
@@ -225,10 +275,12 @@
             </div>
             <div class="job-details"><div class="job-details-inner">
                 <p>We are seeking a highly experienced Senior Investment Analyst.</p>
+                <h4>Responsibilities:</h4><ul><li>Financial modeling and due diligence.</li><li>Prepare investment memorandums.</li></ul>
                 <button class="apply-btn" onclick="openModal('Senior Investment Analyst')">Apply Now</button>
             </div></div>
         </div>
 
+        <!-- Job 2 -->
         <div class="job-card" style="animation-delay: 0.2s;">
             <div class="job-header" onclick="toggleJob(this)">
                 <div class="job-title"><h3>Public Relations Director</h3><div class="job-meta"><span><i class="fa-solid fa-location-dot"></i> Abu Dhabi, UAE</span></div></div>
@@ -236,10 +288,12 @@
             </div>
             <div class="job-details"><div class="job-details-inner">
                 <p>Lead the external communication strategy for the Foundation.</p>
+                <h4>Responsibilities:</h4><ul><li>Develop PR strategies.</li><li>Coordinate diplomatic visits.</li></ul>
                 <button class="apply-btn" onclick="openModal('Public Relations Director')">Apply Now</button>
             </div></div>
         </div>
 
+        <!-- Job 3 -->
         <div class="job-card" style="animation-delay: 0.3s;">
             <div class="job-header" onclick="toggleJob(this)">
                 <div class="job-title"><h3>Legal Counsel</h3><div class="job-meta"><span><i class="fa-solid fa-location-dot"></i> Dubai, UAE</span></div></div>
@@ -329,16 +383,16 @@
         function closeModal() { modal.style.display = "none"; }
         window.onclick = function(event) { if (event.target == modal) { closeModal(); } }
 
-        // 4. AJAX Form Submission (关键：无刷新提交)
+        // 4. AJAX Form Submission
         const form = document.getElementById('careerForm');
         const submitBtn = document.getElementById('submitBtn');
         const fileInput = document.getElementById('resume');
         const fileError = document.getElementById('file-error');
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // 阻止默认跳转
+            e.preventDefault(); 
 
-            // 简单的文件大小检查
+            // File Size Check
             if (fileInput.files.length > 0) {
                 const fileSize = fileInput.files[0].size / 1024 / 1024;
                 if (fileSize > 5) {
@@ -348,7 +402,7 @@
                 fileError.style.display = 'none';
             }
 
-            // 改变按钮状态
+            // Submit
             const originalText = submitBtn.innerText;
             submitBtn.innerText = "Sending...";
             submitBtn.style.opacity = "0.7";
@@ -359,9 +413,7 @@
             fetch(form.action, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             })
             .then(response => {
                 if (response.ok) {
@@ -373,7 +425,7 @@
                 }
             })
             .catch(error => {
-                alert("Network error. Please check your connection.");
+                alert("Network error.");
             })
             .finally(() => {
                 submitBtn.innerText = originalText;
